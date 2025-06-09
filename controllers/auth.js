@@ -46,3 +46,17 @@ export const login = async (req, res = response) => {
     res.status(500).json({ ok: false, msg: error.message });
   }
 };
+
+export const renew = async (req, res = response) => {
+  try {
+    // Generar JWT
+    const token = await generarJWT(req.uid);
+
+    const usuario = await Usuario.findById(req.uid);
+    if (!usuario) return res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
+
+    res.json({ ok: true, usuario, token });
+  } catch (error) {
+    res.status(500).json({ ok: false, msg: error.message });
+  }
+};
