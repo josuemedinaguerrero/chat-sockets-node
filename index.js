@@ -4,7 +4,8 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import socket from './sockets/socket.js';
 import { dbConnection } from './database/config.js';
-import authRoute from './routes/auth.js';
+import authRoutes from './routes/auth.js';
+import usuarioRoutes from './routes/usuarios.js';
 
 dotenv.config();
 
@@ -22,7 +23,8 @@ const io = new Server(server, { cors: { origin: '*' } });
 socket(io);
 
 // Mis rutas
-app.use('/api/login', authRoute);
+app.use('/api/login', authRoutes);
+app.use('/api/usuarios', usuarioRoutes);
 
 server.listen(process.env.PORT, (err) => {
   if (err) throw new Error(err);
