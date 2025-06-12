@@ -13,6 +13,13 @@ export default (io) => {
     console.log('Cliente Autenticado');
     usuarioConectado(uid);
 
+    client.join(uid);
+
+    client.on('mensaje-personal', (payload) => {
+      console.log({ payload });
+      io.to(payload.para).emit('mensaje-personal', payload);
+    });
+
     client.on('disconnect', () => {
       console.log('Cliente desconectado');
       usuarioDesconectado(uid);
