@@ -1,4 +1,4 @@
-import { usuarioConectado, usuarioDesconectado } from '../controllers/socket.js';
+import { grabarMensaje, usuarioConectado, usuarioDesconectado } from '../controllers/socket.js';
 import { comprobarJWT } from '../helpers/jwt.js';
 
 export default (io) => {
@@ -15,8 +15,9 @@ export default (io) => {
 
     client.join(uid);
 
-    client.on('mensaje-personal', (payload) => {
+    client.on('mensaje-personal', async (payload) => {
       console.log({ payload });
+      await grabarMensaje(payload);
       io.to(payload.para).emit('mensaje-personal', payload);
     });
 

@@ -6,6 +6,7 @@ import socket from './sockets/socket.js';
 import { dbConnection } from './database/config.js';
 import authRoutes from './routes/auth.js';
 import usuarioRoutes from './routes/usuarios.js';
+import mensajesRoutes from './routes/mensajes.js';
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ socket(io);
 // Mis rutas
 app.use('/api/login', authRoutes);
 app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/mensajes', mensajesRoutes);
 
 server.listen(process.env.PORT, (err) => {
   if (err) throw new Error(err);

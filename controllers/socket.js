@@ -1,3 +1,4 @@
+import Mensaje from '../models/mensaje.js';
 import Usuario from '../models/usuario.js';
 
 export const usuarioConectado = async (uid = '') => {
@@ -12,4 +13,15 @@ export const usuarioDesconectado = async (uid = '') => {
   usuario.online = false;
   await usuario.save();
   return usuario;
+};
+
+export const grabarMensaje = async (payload) => {
+  try {
+    const message = new Mensaje(payload);
+    await message.save();
+
+    return true;
+  } catch (error) {
+    return false;
+  }
 };
